@@ -24,16 +24,16 @@ export default function AuthPage() {
   }
 
   const handleGoogleLogin = async () => {
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: { redirectTo: `${window.location.origin}/dashboard` }
-      });
-      if (error) throw error;
-    } catch (error: any) {
-      toast.error(error.message || "Failed to login with Google");
-    }
-  };
+  try {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: window.location.origin }
+    });
+    if (error) throw error;
+  } catch (error: any) {
+    toast.error(error.message || "Failed to login with Google");
+  }
+};
 
   const handleGithubLogin = async () => {
     try {
