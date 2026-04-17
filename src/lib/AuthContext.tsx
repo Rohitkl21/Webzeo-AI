@@ -14,7 +14,7 @@ const AuthContext = createContext<AuthContextType>({ user: null, session: null, 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true); // Start true so ProtectedRoute waits for session check
   const [userRole, setUserRole] = useState<'admin' | 'user' | 'team-owner' | 'viewer' | null>(null);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     initializeAuth();
 
-    // Listen for changes
+    // Listen for changes (auth state changes after initial load)
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, currentSession) => {
       setSession(currentSession);
       setUser(currentSession?.user ?? null);
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       } else {
         setUserRole(null);
       }
-      setLoading(false);
+      // Note: setLoading(false) is only handled by initializeAuth to avoid race condition
     });
 
     return () => subscription.unsubscribe();
