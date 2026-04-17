@@ -1,0 +1,11 @@
+﻿src/components/builder/Step2Generation.tsx(132,42): error TS2322: Type '{ size: "sm"; className: string; }' is not assignable to type 'SpinnerProps'.
+  Property 'className' does not exist on type 'SpinnerProps'.
+src/components/deploy/DeployModal.tsx(225,38): error TS2322: Type '{ size: "md"; className: string; }' is not assignable to type 'SpinnerProps'.
+  Property 'className' does not exist on type 'SpinnerProps'.
+src/components/deploy/DeployModal.tsx(262,40): error TS2322: Type '{ size: "sm"; className: string; }' is not assignable to type 'SpinnerProps'.
+  Property 'className' does not exist on type 'SpinnerProps'.
+src/components/ui/spinner.tsx(9,27): error TS2339: Property 'className' does not exist on type 'SpinnerProps'.
+src/pages/MultiAgentMode.tsx(115,65): error TS2322: Type '{ size: "sm"; className: string; }' is not assignable to type 'SpinnerProps'.
+  Property 'className' does not exist on type 'SpinnerProps'.
+src/pages/MultiAgentMode.tsx(152,42): error TS2322: Type '{ size: "sm"; className: string; }' is not assignable to type 'SpinnerProps'.
+  Property 'className' does not exist on type 'SpinnerProps'.
