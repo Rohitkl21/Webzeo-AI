@@ -29,6 +29,7 @@ import WebzeoFlow from './pages/WebzeoFlow';
 import AiDesignMode from './pages/AiDesignMode';
 import MultiAgentMode from './pages/MultiAgentMode';
 import AiErrorMonitoring from './pages/AiErrorMonitoring';
+import AuthCallback from './pages/AuthCallback';
 import { Toaster } from 'sonner';
 
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -77,6 +78,7 @@ export default function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<AuthPage />} />
             <Route path="/signup" element={<AuthPage />} />
+            <Route path="/auth/callback" element={<AuthCallback />} />
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/projects" element={<ProtectedRoute><Projects /></ProtectedRoute>} />
             <Route path="/project/:siteId/settings" element={<ProtectedRoute><ProjectSettings /></ProtectedRoute>} />
