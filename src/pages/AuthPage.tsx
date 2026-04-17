@@ -25,9 +25,10 @@ export default function AuthPage() {
 
   const handleGoogleLogin = async () => {
   try {
+    const redirectTo = `${window.location.origin}/dashboard`;
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/dashboard` }
+      options: { redirectTo }
     });
     if (error) throw error;
   } catch (error: any) {
@@ -37,9 +38,10 @@ export default function AuthPage() {
 
   const handleGithubLogin = async () => {
     try {
+      const redirectTo = `${window.location.origin}/dashboard`;
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'github',
-        options: { redirectTo: `${window.location.origin}/dashboard` }
+        options: { redirectTo }
       });
       if (error) throw error;
     } catch (error: any) {

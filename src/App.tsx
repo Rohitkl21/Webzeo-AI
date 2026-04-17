@@ -39,9 +39,11 @@ const ProtectedRoute = ({ children, requireAdmin = false }: { children: React.Re
   if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   if (!user) return <Navigate to="/login" />;
   
-  // Require email verification for email/password accounts (Supabase)
+  // Require email verification ONLY for email/password accounts that haven't confirmed yet.
+  // OAuth providers (Google, GitHub) always have email_confirmed_at set automatically.
   const provider = user.app_metadata?.provider ?? 'email';
-  if (provider === 'email' && !user.email_confirmed_at) {
+  const isEmailProvider = provider === 'email' || provider === 'email_signup';
+  if (isEmailProvider && !user.email_confirmed_at) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-background text-text-primary p-6">
         <div className="max-w-md w-full bg-surface border border-white/10 p-8 rounded-2xl text-center">
@@ -95,6 +97,14 @@ export default function App() {
             <Route path="/builder/:siteId?" element={<ProtectedRoute><SiteBuilder /></ProtectedRoute>} />
             <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
             <Route path="/admin" element={<ProtectedRoute requireAdmin><AdminPanel /></ProtectedRoute>} />
+            {/* 404 catch-all */}
+            <Route path="*" element={
+              <div className="min-h-screen flex flex-col items-center justify-center bg-background text-text-primary">
+                <h1 className="text-6xl font-bold font-display text-primary mb-4">404</h1>
+                <p className="text-text-muted text-lg mb-8">Page not found.</p>
+                <a href="/" className="bg-primary text-primary-foreground px-6 py-2 rounded-full font-medium hover:bg-primary/90 transition-colors">Go Home</a>
+              </div>
+            } />
           </Routes>
           <Toaster position="top-right" richColors closeButton />
         </Router>
