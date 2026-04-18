@@ -79,7 +79,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         .eq('id', currentUser.id)
         .single();
 
-      if (!userData && !error) {
+      // PGRST116 is the error code for "0 rows returned" from .single()
+      if (error && error.code === 'PGRST116' || (!userData && !error)) {
         // Create new user document (mock logic mapping)
         const isFirstUser = currentUser.email === 'rohitpatel11032004@gmail.com';
         const role = isFirstUser ? 'admin' : 'user';
